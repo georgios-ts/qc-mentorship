@@ -1,9 +1,9 @@
 from numpy import pi
 
+from qiskit.circuit import Parameter
 from qiskit import QuantumCircuit, QuantumRegister
 
-from qiskit.circuit import Parameter
-from qiskit.circuit.equivalence import EquivalenceLibrary
+from basis_library import BasisLibrary
 
 from qiskit.circuit.library.standard_gates import (
     HGate,
@@ -13,7 +13,7 @@ from qiskit.circuit.library.standard_gates import (
 )
 
 
-libr = BasisLibrary = EquivalenceLibrary()
+libr = RxzCzLibrary = BasisLibrary()
 
 
 # H - Gate
@@ -27,8 +27,7 @@ rules = [(RZGate(pi / 2), [q[0]], []),
 for inst, qargs, cargs in rules:
     _def.append(inst, qargs, cargs)
 
-libr.add_equivalence(HGate(), _def)
-
+libr.add('h', _def)
 
 
 # Z - Gate
@@ -40,8 +39,7 @@ rules = [(RZGate(pi), [q[0]], [])]
 for inst, qargs, cargs in rules:
     _def.append(inst, qargs, cargs)
 
-libr.add_equivalence(ZGate(), _def)
-
+libr.add('z', _def)
 
 
 # X - Gate
@@ -53,8 +51,7 @@ rules = [(RXGate(pi), [q[0]], [])]
 for inst, qargs, cargs in rules:
     _def.append(inst, qargs, cargs)
 
-libr.add_equivalence(XGate(), _def)
-
+libr.add('x', _def)
 
 
 # Y - Gate
@@ -67,8 +64,7 @@ rules = [(RXGate(pi), [q[0]], []),
 for inst, qargs, cargs in rules:
     _def.append(inst, qargs, cargs)
 
-libr.add_equivalence(YGate(), _def)
-
+libr.add('y', _def)
 
 
 # Ry - Gate
@@ -84,8 +80,7 @@ rules = [(RZGate(-pi / 2), [q[0]], []),
 for inst, qargs, cargs in rules:
     _def.append(inst, qargs, cargs)
 
-libr.add_equivalence(RYGate(theta), _def)
-
+libr.add('ry', _def)
 
 
 # CX - Gate
@@ -101,4 +96,4 @@ rules = [(RZGate(pi / 2), [q[1]], []),
 for inst, qargs, cargs in rules:
     _def.append(inst, qargs, cargs)
 
-libr.add_equivalence(CXGate(), _def)
+libr.add('cx', _def)

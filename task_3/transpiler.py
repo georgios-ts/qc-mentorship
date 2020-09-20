@@ -1,7 +1,8 @@
 from qiskit.transpiler import PassManager
 from qiskit.transpiler.passes import BasisTranslator, DAGFixedPoint
 
-from library import BasisLibrary
+from unroller import Unroller
+from library import RxzCzLibrary
 from optimization import (
     Optimize1qRotations,
     CZCancellation,
@@ -17,8 +18,8 @@ class RxzCzTranspiler:
         self.optimize = optimize
 
     def run(self, qc):
-        pass_ = BasisTranslator(BasisLibrary,
-                                ['rx', 'rz', 'cz'])
+        pass_ = Unroller(RxzCzLibrary,
+                         ['rx', 'rz', 'cz'])
 
         pm = PassManager(pass_)
 
